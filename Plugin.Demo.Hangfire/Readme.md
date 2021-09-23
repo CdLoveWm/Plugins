@@ -1,4 +1,4 @@
-﻿﻿
+﻿﻿﻿
 
 # **Hangfire**
 
@@ -43,9 +43,9 @@ RecurringJob.AddOrUpdate<ITestJob>(it => it.Excute(), Cron.Minutely, TimeZoneInf
 
 当我们需要在项目运行期间更改Hangfire的具体任务的执行周期时，同样可以使用`AddOrUpdate` 方法进行更新对应的Cron表达式。 比如在这个项目中添加了一个页面叫Hangfire：
 
-![image-20210923104955815](C:\Users\dong.chen\AppData\Roaming\Typora\typora-user-images\image-20210923104955815.png)
+![image-20210923104955815](https://i.loli.net/2021/09/23/tMFi2kKaeuS81mz.png)
 
-在这个页面输入相应的Cron表达式， 点击确定调用接口执行更新Cron的操作。 如下：
+在这个页面输入相应的Cron表达式， 点击确定调用接口执行更新Cron的操作。 如下： 
 
 ```c#
 /// <summary>
