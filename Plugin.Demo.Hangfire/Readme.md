@@ -1,4 +1,4 @@
-﻿﻿﻿
+﻿﻿﻿﻿
 
 # **Hangfire**
 
@@ -63,4 +63,36 @@ public bool CronUpdate(string cron)
 ```
 
 以上操作就能达到在程序不停止运行的情况下去更新Cron了。
+
+### 三、生成Cron最近时间列表
+
+这里使用到了一个包， 叫做 `NCrontab`  ，它提供Cron表达式的解析功能等等。 
+GitHub地址： https://github.com/atifaziz/NCrontab
+
+我在这只计算最近的5次时间，具体代码如下：
+
+```C#
+public List<string> CronParse(string cron)
+{
+    if (string.IsNullOrWhiteSpace(cron))
+        return null;
+    try
+    {
+        var parser = CrontabSchedule.Parse(cron);
+        List<string> dateList = new List<string>();
+        DateTime startTime = DateTime.Now;
+        DateTime endTime = DateTime.MaxValue;
+        for (int i = 0; i < 5; i++)
+        {
+            startTime = parser.GetNextOccurrence(startTime, endTime);
+            dateList.Add(startTime.ToString("yyyy-MM-dd HH:mm:ss"));
+        }
+        return dateList;
+    }
+    catch (Exception)
+    {
+        throw;
+    }
+}
+```
 

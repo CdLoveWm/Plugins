@@ -73,7 +73,6 @@ namespace Plugin.Demo.Hangfire.Controllers
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
