@@ -12,23 +12,42 @@
     </div>
     <div style="margin-top:15px">
         <input type="button" id="Sure" value="确 定" class="btn btn-sm btn-primary"/>
+        <input type="button" id="DateList" value="执行时间" class="btn btn-sm btn-primary" style="margin-left:30px"/>
     </div>
 </div>
 <script src="/lib/jquery/dist/jquery.js"></script>
 <script type="text/javascript">
-    $("#Sure").on('click', function(){
-        let cron = $.trim($("#cron").val())
-        if(!cron){
-            alert("请输入Cron表达式")
-            return
-        }
-        $.ajax("/Home/Cron",{
-            async: false,
-            data: {cron},
-            success: function(res){
-                if(res) alert("修改成功")
+    $(function(){
+        // 保存Cron
+        $("#Sure").on('click', function(){
+            let cron = $.trim($("#cron").val())
+            if(!cron){
+                alert("请输入Cron表达式")
+                return
             }
+            $.ajax("/Home/Cron",{
+                async: false,
+                data: {cron},
+                success: function(res){
+                    if(res) alert("修改成功")
+                }
+            })
         })
 
+        // 解析最近执行时间
+        $("#DateList").on("click", function(){
+            let cron = $.trim($("#cron").val())
+            if(!cron){
+                alert("请输入Cron表达式")
+                return
+            }
+            $.ajax("/Home/CronParse",{
+                async: false,
+                data: {cron},
+                success: function(res){
+                    console.log(res)
+                }
+            })
+        })
     })
 </script>
